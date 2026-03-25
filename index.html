@@ -3,267 +3,333 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Class 9 | NCERT Formula Vault Pro</title>
-    <link rel="icon" href="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f4d8.png">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Fira+Code:wght@500&display=swap" rel="stylesheet">
+    <title>OmniVault | NCERT Class 9</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Fira+Code:wght@500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     
     <style>
         :root {
-            --bg: #0f172a; --card: #1e293b; --accent: #b2d8d8; 
-            --math: #79c0ff; --phys: #7ee787; --text: #f1f5f9;
+            --bg: #05070a;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+            --math-glow: #3b82f6;
+            --phys-glow: #10b981;
+            --accent: #a78bfa;
+            --text: #e2e8f0;
         }
 
-        /* SPLASH SCREEN */
-        #splash-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--bg); display: flex; flex-direction: column;
-            align-items: center; justify-content: center; z-index: 9999;
-            transition: opacity 0.8s ease, visibility 0.8s;
+        body {
+            background-color: var(--bg);
+            background-image: radial-gradient(circle at 50% 50%, #111827 0%, #05070a 100%);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
         }
-        .loader-text { font-family: 'Inter'; color: var(--accent); letter-spacing: 2px; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
 
-        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; margin: 0; padding: 20px; overflow-x: hidden; }
-        .container { max-width: 1100px; margin: 0 auto; opacity: 0; transition: opacity 1s ease; }
-        .loaded .container { opacity: 1; }
+        .container { max-width: 1200px; margin: 0 auto; }
 
-        header { text-align: center; padding: 20px 0; }
-        
-        /* TRACKER */
-        .tracker-card { background: rgba(178, 216, 216, 0.05); border: 1px dashed var(--accent); padding: 20px; border-radius: 15px; margin-bottom: 30px; }
-        .tracker-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-top: 15px; }
-        .goal-item { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; cursor: pointer; }
-        
-        /* TOOLS */
-        .tool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
-        .tool-card { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); }
-        .tool-card h4 { margin: 0 0 10px; color: var(--accent); font-size: 0.75rem; text-transform: uppercase; }
-        .conv-input { width: 90%; background: #0f172a; border: 1px solid #334155; color: white; padding: 8px; border-radius: 8px; }
+        /* HEADER & GLASS EFFECT */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            margin-bottom: 40px;
+        }
 
-        /* FILTERS */
-        .filter-bar { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 20px 0; }
-        .chip { background: #334155; border: none; color: white; padding: 6px 14px; border-radius: 20px; cursor: pointer; transition: 0.3s; font-size: 0.8rem; }
-        .chip.active { background: var(--accent); color: var(--bg); font-weight: 600; }
+        h1 { font-weight: 700; font-size: 2.5rem; margin: 0; letter-spacing: -1px; }
+        .gradient-text { background: linear-gradient(90deg, #a78bfa, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        /* INTERACTIVE FILTERS */
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 10px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 0.9rem;
+        }
+
+        .btn:hover { background: rgba(255,255,255,0.1); border-color: var(--accent); transform: translateY(-2px); }
+        .btn.active { background: var(--accent); color: #000; font-weight: 600; }
 
         /* FORMULA CARDS */
-        .formula-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 15px; }
-        .card { background: var(--card); border-radius: 12px; padding: 18px; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
-        .card:hover { border-color: var(--accent); transform: translateY(-3px); }
-        .badge { font-size: 0.6rem; padding: 3px 8px; border-radius: 4px; margin-bottom: 8px; display: inline-block; font-weight: bold; text-transform: uppercase; }
-        .m-badge { background: rgba(121, 192, 255, 0.15); color: var(--math); }
-        .p-badge { background: rgba(126, 231, 135, 0.15); color: var(--phys); }
-        
-        .equation { 
-            font-family: 'Fira Code', monospace; background: #0a0e17; padding: 12px; 
-            border-radius: 8px; color: #fff; margin: 10px 0; text-align: center; font-size: 1rem;
+        .vault-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 20px;
         }
 
-        .exam-mode .equation { color: transparent; background: #1e293b; cursor: pointer; border: 1px solid #334155; }
-        .exam-mode .equation:active { color: white; background: #0a0e17; }
+        .card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+            transition: 0.4s;
+        }
 
-        .usage { font-size: 0.8rem; color: #94a3b8; line-height: 1.4; }
-        .usage b { color: var(--text); }
+        .card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+        }
 
-        @media (max-width: 768px) { .tool-grid { grid-template-columns: 1fr; } }
+        .card.math::before { background: var(--math-glow); box-shadow: 0 0 15px var(--math-glow); }
+        .card.phys::before { background: var(--phys-glow); box-shadow: 0 0 15px var(--phys-glow); }
+
+        .card:hover { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.05); }
+
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
+        .chapter-tag { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: #94a3b8; }
+        
+        .equation-box {
+            font-family: 'Fira Code', monospace;
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 12px;
+            margin: 15px 0;
+            text-align: center;
+            font-size: 1.1rem;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: 0.3s;
+        }
+
+        /* EXAM MODE HIDE */
+        .exam-hidden .equation-box { color: transparent; background: #1e293b; cursor: help; }
+        .exam-hidden .equation-box::after { content: 'CLICK TO REVEAL'; color: #475569; font-size: 0.7rem; font-family: 'Inter'; }
+        .exam-hidden .equation-box:active { color: white; background: #000; }
+
+        .usage-text { font-size: 0.85rem; color: #94a3b8; }
+        .usage-text b { color: var(--text); }
+
+        /* UTILITY DRAWER */
+        .utility-bar {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        input {
+            background: #000; border: 1px solid var(--border);
+            color: white; padding: 10px; border-radius: 8px; width: 100%; box-sizing: border-box;
+        }
+
+        @media (max-width: 600px) { h1 { font-size: 1.8rem; } }
     </style>
 </head>
 <body>
 
-<div id="splash-screen">
-    <div style="font-size: 3rem; margin-bottom: 10px;">⚛️</div>
-    <div class="loader-text">PREPARING NCERT VAULT...</div>
-</div>
-
 <div class="container">
     <header>
-        <h1 style="margin:0; font-size: 2rem;">NCERT <span style="color:var(--accent)">Vault</span> Class 9</h1>
+        <div style="margin-bottom: 10px;"><i data-lucide="shield-check" style="color:var(--accent)"></i></div>
+        <h1>NCERT <span class="gradient-text">OmniVault</span></h1>
+        <p style="color: #64748b; font-size: 0.9rem;">Official Formula Repository for Class 9 Mathematics & Physics</p>
     </header>
 
-    <div class="tracker-card">
-        <h4 style="margin:0; color:var(--accent); font-size:0.9rem;">Syllabus Mastery Tracker</h4>
-        <div class="tracker-grid">
-            <label class="goal-item"><input type="checkbox" id="g1" onchange="s(this)"> Motion</label>
-            <label class="goal-item"><input type="checkbox" id="g2" onchange="s(this)"> Force & Laws</label>
-            <label class="goal-item"><input type="checkbox" id="g3" onchange="s(this)"> Gravitation</label>
-            <label class="goal-item"><input type="checkbox" id="g4" onchange="s(this)"> Work & Energy</label>
-            <label class="goal-item"><input type="checkbox" id="g5" onchange="s(this)"> Sound</label>
-            <label class="goal-item"><input type="checkbox" id="g6" onchange="s(this)"> Polynomials</label>
-            <label class="goal-item"><input type="checkbox" id="g7" onchange="s(this)"> Geometry</label>
-            <label class="goal-item"><input type="checkbox" id="g8" onchange="s(this)"> Mensuration</label>
+    <div class="utility-bar">
+        <div>
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px; font-size:0.8rem; color:var(--phys-glow);">
+                <i data-lucide="zap" size="16"></i> QUICK CONVERTER
+            </div>
+            <input type="number" id="unitInput" placeholder="Enter km/h..." oninput="convert()">
+            <div id="unitResult" style="margin-top:10px; font-weight:bold; font-size:1.2rem;">0 <small>m/s</small></div>
         </div>
-    </div>
-
-    <div class="tool-grid">
-        <div class="tool-card">
-            <h4>Quick Unit Converter</h4>
-            <input type="number" id="kmh" class="conv-input" placeholder="km/h to m/s..." oninput="c()">
-            <p id="res" style="margin:8px 0 0; font-weight:600; color:var(--phys);">0 m/s</p>
-        </div>
-        <div class="tool-card">
-            <h4>NCERT Constants</h4>
-            <div style="font-size: 0.75rem; display: flex; justify-content: space-between;">
+        <div style="border-left: 1px solid var(--border); padding-left: 20px;">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px; font-size:0.8rem; color:var(--accent);">
+                <i data-lucide="cpu" size="16"></i> CONSTANT KERNEL
+            </div>
+            <div style="font-size: 0.8rem; display:grid; grid-template-columns: 1fr 1fr; gap:5px;">
                 <span>g = 9.8 m/s²</span>
-                <span>G = 6.673 × 10⁻¹¹</span>
-                <span>π ≈ 3.14 / 22/7</span>
+                <span>G = 6.67 × 10⁻¹¹</span>
+                <span>π ≈ 22/7</span>
+                <span>ρ_water = 10³ kg/m³</span>
             </div>
         </div>
     </div>
 
-    <div class="filter-bar">
-        <button class="chip active" onclick="f('all', this)">All</button>
-        <button class="chip" onclick="f('phys', this)">Physics</button>
-        <button class="chip" onclick="f('math', this)">Mathematics</button>
-        <button class="chip" onclick="toggleExam()">Exam Mode</button>
+    <div class="controls">
+        <button class="btn active" onclick="filter('all', this)"><i data-lucide="layers"></i> All</button>
+        <button class="btn" onclick="filter('math', this)"><i data-lucide="variable"></i> Maths</button>
+        <button class="btn" onclick="filter('phys', this)"><i data-lucide="atom"></i> Physics</button>
+        <button class="btn" onclick="toggleExam()" id="examBtn"><i data-lucide="eye-off"></i> Exam Mode</button>
     </div>
 
-    <div class="formula-grid" id="grid">
-        <div class="card" data-cat="phys">
-            <span class="badge p-badge">Motion</span>
-            <h3>Average Speed</h3>
-            <div class="equation">vₐᵥ = Total Dist / Total Time</div>
-            <p class="usage"><b>Usage:</b> Used when an object travels different distances in different time intervals.</p>
+    <div class="vault-grid" id="mainGrid">
+        <div class="card math" data-type="math">
+            <div class="card-header">
+                <span class="chapter-tag">Number Systems</span>
+                <i data-lucide="hash" size="18" color="#3b82f6"></i>
+            </div>
+            <h3>Laws of Exponents</h3>
+            <div class="equation-box">aᵐ ⋅ aⁿ = aᵐ⁺ⁿ <br> (aᵐ)ⁿ = aᵐⁿ</div>
+            <p class="usage-text"><b>NCERT Note:</b> For non-zero rational numbers <i>a</i> and integers <i>m, n</i>.</p>
         </div>
 
-        <div class="card" data-cat="phys">
-            <span class="badge p-badge">Motion</span>
-            <h3>Acceleration</h3>
-            <div class="equation">a = (v - u) / t</div>
-            <p class="usage"><b>Usage:</b> Calculating the rate of change of velocity. (v=final, u=initial)</p>
+        <div class="card phys" data-type="phys">
+            <div class="card-header">
+                <span class="chapter-tag">Motion (Ch 7)</span>
+                <i data-lucide="move" size="18" color="#10b981"></i>
+            </div>
+            <h3>Average Velocity</h3>
+            <div class="equation-box">vₐᵥ = (u + v) / 2</div>
+            <p class="usage-text"><b>NCERT Note:</b> Applicable when velocity is changing at a uniform rate.</p>
         </div>
 
-        <div class="card" data-cat="phys">
-            <span class="badge p-badge">Motion</span>
-            <h3>3rd Equation of Motion</h3>
-            <div class="equation">2as = v² - u²</div>
-            <p class="usage"><b>Usage:</b> Finding distance or velocity when <b>time (t)</b> is not given in the question.</p>
+        <div class="card phys" data-type="phys">
+            <div class="card-header">
+                <span class="chapter-tag">Motion (Ch 7)</span>
+                <i data-lucide="trending-up" size="18" color="#10b981"></i>
+            </div>
+            <h3>Equations of Motion</h3>
+            <div class="equation-box">v = u + at <br> s = ut + ½at² <br> v² - u² = 2as</div>
+            <p class="usage-text"><b>Usage:</b> Calculating distance(s), time(t), and velocity for uniform acceleration.</p>
         </div>
 
-        <div class="card" data-cat="phys">
-            <span class="badge p-badge">Force</span>
-            <h3>Momentum</h3>
-            <div class="equation">p = m × v</div>
-            <p class="usage"><b>Usage:</b> Measuring the "impact" an object can have. Unit: kg m/s.</p>
-        </div>
-
-        <div class="card" data-cat="phys">
-            <span class="badge p-badge">Force</span>
-            <h3>Newton's 2nd Law</h3>
-            <div class="equation">F = m × a</div>
-            <p class="usage"><b>Usage:</b> The most common formula for calculating Force required to accelerate a mass.</p>
-        </div>
-
-        <div class="card" data-cat="phys">
-            <span class="badge p-badge">Gravitation</span>
-            <h3>Universal Law</h3>
-            <div class="equation">F = G (M×m) / d²</div>
-            <p class="usage"><b>Usage:</b> Force between two objects (like Earth and Moon) at a distance <b>d</b>.</p>
-        </div>
-
-        <div class="card" data-cat="phys">
-            <span class="badge p-badge">Gravitation</span>
-            <h3>Weight</h3>
-            <div class="equation">W = m × g</div>
-            <p class="usage"><b>Usage:</b> Weight is the force of gravity acting on your mass (m).</p>
-        </div>
-
-        <div class="card" data-cat="phys">
-            <span class="badge p-badge">Energy</span>
-            <h3>Kinetic Energy</h3>
-            <div class="equation">Eₖ = ½ mv²</div>
-            <p class="usage"><b>Usage:</b> Calculating energy of moving objects (bullets, cars, etc.).</p>
-        </div>
-
-        <div class="card" data-cat="phys">
-            <span class="badge p-badge">Energy</span>
-            <h3>Potential Energy</h3>
-            <div class="equation">Eₚ = mgh</div>
-            <p class="usage"><b>Usage:</b> Energy stored in an object due to its height (h) above ground.</p>
-        </div>
-
-        <div class="card" data-cat="math">
-            <span class="badge m-badge">Polynomials</span>
-            <h3>Algebraic Identity</h3>
-            <div class="equation">(x+y+z)² = x²+y²+z²+2xy+2yz+2zx</div>
-            <p class="usage"><b>Usage:</b> Expanding squares of trinomials in Algebra.</p>
-        </div>
-
-        <div class="card" data-cat="math">
-            <span class="badge m-badge">Polynomials</span>
+        <div class="card math" data-type="math">
+            <div class="card-header">
+                <span class="chapter-tag">Polynomials</span>
+                <i data-lucide="parentheses" size="18" color="#3b82f6"></i>
+            </div>
             <h3>Cubic Identity</h3>
-            <div class="equation">x³+y³+z³-3xyz = (x+y+z)(x²+y²+z²-xy-yz-zx)</div>
-            <p class="usage"><b>Usage:</b> Advanced factorization problems in Class 9 exams.</p>
+            <div class="equation-box">(x + y)³ = x³ + y³ + 3xy(x + y)</div>
+            <p class="usage-text"><b>Usage:</b> Expanding cubic binomials in factorization problems.</p>
         </div>
 
-        <div class="card" data-cat="math">
-            <span class="badge m-badge">Heron's Formula</span>
+        <div class="card phys" data-type="phys">
+            <div class="card-header">
+                <span class="chapter-tag">Force (Ch 8)</span>
+                <i data-lucide="zap" size="18" color="#10b981"></i>
+            </div>
+            <h3>Momentum & Force</h3>
+            <div class="equation-box">p = m × v <br> F = m × a</div>
+            <p class="usage-text"><b>NCERT Definition:</b> Force is the rate of change of momentum (Newton's 2nd Law).</p>
+        </div>
+
+        <div class="card phys" data-type="phys">
+            <div class="card-header">
+                <span class="chapter-tag">Gravitation (Ch 9)</span>
+                <i data-lucide="globe" size="18" color="#10b981"></i>
+            </div>
+            <h3>Universal Law</h3>
+            <div class="equation-box">F = G (Mm) / d²</div>
+            <p class="usage-text"><b>Note:</b> Every object in the universe attracts every other object.</p>
+        </div>
+
+        <div class="card math" data-type="math">
+            <div class="card-header">
+                <span class="chapter-tag">Heron's Formula</span>
+                <i data-lucide="triangle" size="18" color="#3b82f6"></i>
+            </div>
             <h3>Area of Triangle</h3>
-            <div class="equation">Area = √[s(s-a)(s-b)(s-c)]</div>
-            <p class="usage"><b>Usage:</b> When you know all 3 sides but not the height. (s = semi-perimeter)</p>
+            <div class="equation-box">√[s(s-a)(s-b)(s-c)]</div>
+            <p class="usage-text"><b>Note:</b> s = (a+b+c)/2 (Semi-perimeter).</p>
         </div>
 
-        <div class="card" data-cat="math">
-            <span class="badge m-badge">Surface Area</span>
-            <h3>TSA of Cylinder</h3>
-            <div class="equation">2πr(r + h)</div>
-            <p class="usage"><b>Usage:</b> Total surface area including the two circular bases.</p>
+        <div class="card phys" data-type="phys">
+            <div class="card-header">
+                <span class="chapter-tag">Work & Energy (Ch 10)</span>
+                <i data-lucide="battery-charging" size="18" color="#10b981"></i>
+            </div>
+            <h3>Mechanical Energy</h3>
+            <div class="equation-box">Eₖ = ½mv² <br> Eₚ = mgh</div>
+            <p class="usage-text"><b>NCERT Note:</b> Work done (W) = Force (F) × Displacement (s).</p>
         </div>
 
-        <div class="card" data-cat="math">
-            <span class="badge m-badge">Surface Area</span>
-            <h3>TSA of Cone</h3>
-            <div class="equation">πr(l + r)</div>
-            <p class="usage"><b>Usage:</b> (l = slant height). Used for calculating canvas for tents.</p>
+        <div class="card math" data-type="math">
+            <div class="card-header">
+                <span class="chapter-tag">Surface Areas</span>
+                <i data-lucide="box" size="18" color="#3b82f6"></i>
+            </div>
+            <h3>Volume: Sphere & Cone</h3>
+            <div class="equation-box">Sphere: 4/3 πr³ <br> Cone: 1/3 πr²h</div>
+            <p class="usage-text"><b>Usage:</b> Calculating capacity of 3D geometrical shapes.</p>
         </div>
 
-        <div class="card" data-cat="math">
-            <span class="badge m-badge">Volume</span>
-            <h3>Volume of Sphere</h3>
-            <div class="equation">V = 4/3 πr³</div>
-            <p class="usage"><b>Usage:</b> Calculating capacity of spherical tanks or shotputs.</p>
+        <div class="card phys" data-type="phys">
+            <div class="card-header">
+                <span class="chapter-tag">Sound (Ch 11)</span>
+                <i data-lucide="waves" size="18" color="#10b981"></i>
+            </div>
+            <h3>Wave Equation</h3>
+            <div class="equation-box">v = λ × ν <br> ν = 1 / T</div>
+            <p class="usage-text"><b>Definitions:</b> λ=Wavelength, ν=Frequency, T=Time Period.</p>
         </div>
-        
-        <div class="card" data-cat="math">
-            <span class="badge m-badge">Volume</span>
-            <h3>Volume of Hemisphere</h3>
-            <div class="equation">V = 2/3 πr³</div>
-            <p class="usage"><b>Usage:</b> Capacity of a bowl or dome-shaped structure.</p>
+
+        <div class="card phys" data-type="phys">
+            <div class="card-header">
+                <span class="chapter-tag">Sound (Ch 11)</span>
+                <i data-lucide="reiterate" size="18" color="#10b981"></i>
+            </div>
+            <h3>Echo Distance</h3>
+            <div class="equation-box">d = (v × t) / 2</div>
+            <p class="usage-text"><b>Condition:</b> For a distinct echo, min distance is 17.2m in air.</p>
         </div>
     </div>
 </div>
 
 <script>
-    // INITIALIZATION
-    window.onload = () => {
-        const goals = ['g1','g2','g3','g4','g5','g6','g7','g8'];
-        goals.forEach(id => {
-            if(localStorage.getItem(id) === 'true') document.getElementById(id).checked = true;
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    function filter(type, btn) {
+        // UI Update
+        document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Filter Logic
+        const cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
+            if(type === 'all' || card.dataset.type === type) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
         });
-
-        setTimeout(() => {
-            const sp = document.getElementById('splash-screen');
-            sp.style.opacity = '0';
-            document.body.classList.add('loaded');
-            setTimeout(() => sp.style.visibility = 'hidden', 800);
-        }, 1200);
-    };
-
-    function s(c) { localStorage.setItem(c.id, c.checked); }
-
-    function c() {
-        let k = document.getElementById('kmh').value;
-        document.getElementById('res').innerText = `${(k * 5/18).toFixed(2)} m/s`;
     }
 
     function toggleExam() {
-        document.getElementById('grid').classList.toggle('exam-mode');
+        const grid = document.getElementById('mainGrid');
+        const btn = document.getElementById('examBtn');
+        grid.classList.toggle('exam-hidden');
+        
+        if(grid.classList.contains('exam-hidden')) {
+            btn.innerHTML = '<i data-lucide="eye"></i> Study Mode';
+            btn.style.background = '#3b82f6';
+            btn.style.color = '#fff';
+        } else {
+            btn.innerHTML = '<i data-lucide="eye-off"></i> Exam Mode';
+            btn.style.background = 'var(--glass)';
+            btn.style.color = 'var(--text)';
+        }
+        lucide.createIcons();
     }
 
-    function f(cat, btn) {
-        document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-        btn.classList.add('active');
-        document.querySelectorAll('.card').forEach(card => {
-            card.style.display = (cat === 'all' || card.getAttribute('data-cat') === cat) ? "block" : "none";
-        });
+    function convert() {
+        const val = document.getElementById('unitInput').value;
+        const res = (val * 5/18).toFixed(2);
+        document.getElementById('unitResult').innerHTML = `${res} <small>m/s</small>`;
     }
 </script>
 
