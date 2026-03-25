@@ -3,333 +3,210 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OmniVault | NCERT Class 9</title>
+    <title>OmniVault Pro | NCERT Class 9</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Fira+Code:wght@500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     
     <style>
         :root {
-            --bg: #05070a;
-            --glass: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.1);
-            --math-glow: #3b82f6;
-            --phys-glow: #10b981;
-            --accent: #a78bfa;
-            --text: #e2e8f0;
+            --bg: #05070a; --glass: rgba(255, 255, 255, 0.03); --border: rgba(255, 255, 255, 0.1);
+            --math-glow: #3b82f6; --phys-glow: #10b981; --accent: #a78bfa; --text: #e2e8f0;
         }
 
         body {
             background-color: var(--bg);
             background-image: radial-gradient(circle at 50% 50%, #111827 0%, #05070a 100%);
-            color: var(--text);
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 20px;
-            line-height: 1.6;
+            color: var(--text); font-family: 'Inter', sans-serif; margin: 0; padding: 20px;
         }
 
         .container { max-width: 1200px; margin: 0 auto; }
 
-        /* HEADER & GLASS EFFECT */
         header {
-            text-align: center;
-            padding: 40px 20px;
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            margin-bottom: 40px;
+            text-align: center; padding: 30px; background: var(--glass);
+            backdrop-filter: blur(10px); border: 1px solid var(--border);
+            border-radius: 24px; margin-bottom: 30px;
         }
 
-        h1 { font-weight: 700; font-size: 2.5rem; margin: 0; letter-spacing: -1px; }
-        .gradient-text { background: linear-gradient(90deg, #a78bfa, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .gradient-text { background: linear-gradient(90deg, #a78bfa, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; }
 
-        /* INTERACTIVE FILTERS */
-        .controls {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-
+        /* FILTERS */
+        .controls { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
         .btn {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            color: var(--text);
-            padding: 10px 20px;
-            border-radius: 12px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-size: 0.9rem;
+            background: var(--glass); border: 1px solid var(--border); color: var(--text);
+            padding: 8px 18px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: 0.3s;
         }
-
-        .btn:hover { background: rgba(255,255,255,0.1); border-color: var(--accent); transform: translateY(-2px); }
         .btn.active { background: var(--accent); color: #000; font-weight: 600; }
 
         /* FORMULA CARDS */
-        .vault-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 20px;
-        }
-
+        .vault-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
         .card {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 24px;
-            position: relative;
-            overflow: hidden;
-            transition: 0.4s;
+            background: var(--glass); border: 1px solid var(--border); border-radius: 20px;
+            padding: 22px; position: relative; transition: 0.3s ease;
         }
+        .card:hover { transform: translateY(-5px); border-color: var(--accent); background: rgba(255,255,255,0.05); }
+        .card.math { border-left: 4px solid var(--math-glow); }
+        .card.phys { border-left: 4px solid var(--phys-glow); }
 
-        .card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
-        }
-
-        .card.math::before { background: var(--math-glow); box-shadow: 0 0 15px var(--math-glow); }
-        .card.phys::before { background: var(--phys-glow); box-shadow: 0 0 15px var(--phys-glow); }
-
-        .card:hover { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.05); }
-
-        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
-        .chapter-tag { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: #94a3b8; }
+        .chapter-tag { font-size: 0.65rem; text-transform: uppercase; color: #94a3b8; letter-spacing: 1px; }
         
-        .equation-box {
-            font-family: 'Fira Code', monospace;
-            background: rgba(0,0,0,0.3);
-            padding: 15px;
-            border-radius: 12px;
-            margin: 15px 0;
-            text-align: center;
-            font-size: 1.1rem;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: 0.3s;
+        .eq {
+            font-family: 'Fira Code', monospace; background: rgba(0,0,0,0.4);
+            padding: 12px; border-radius: 10px; margin: 15px 0; text-align: center;
+            font-size: 1rem; border: 1px solid rgba(255,255,255,0.05);
         }
 
-        /* EXAM MODE HIDE */
-        .exam-hidden .equation-box { color: transparent; background: #1e293b; cursor: help; }
-        .exam-hidden .equation-box::after { content: 'CLICK TO REVEAL'; color: #475569; font-size: 0.7rem; font-family: 'Inter'; }
-        .exam-hidden .equation-box:active { color: white; background: #000; }
+        /* EXAM MODE */
+        .exam-hidden .eq { color: transparent; background: #1e293b; cursor: pointer; position: relative; }
+        .exam-hidden .eq::after { content: 'TAP TO REVEAL'; color: #475569; font-size: 0.6rem; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+        .exam-hidden .eq:active { color: white; background: #000; }
+        .exam-hidden .eq:active::after { display: none; }
 
-        .usage-text { font-size: 0.85rem; color: #94a3b8; }
-        .usage-text b { color: var(--text); }
-
-        /* UTILITY DRAWER */
-        .utility-bar {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 30px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-
-        input {
-            background: #000; border: 1px solid var(--border);
-            color: white; padding: 10px; border-radius: 8px; width: 100%; box-sizing: border-box;
-        }
-
-        @media (max-width: 600px) { h1 { font-size: 1.8rem; } }
+        .note { font-size: 0.8rem; color: #94a3b8; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <div style="margin-bottom: 10px;"><i data-lucide="shield-check" style="color:var(--accent)"></i></div>
         <h1>NCERT <span class="gradient-text">OmniVault</span></h1>
-        <p style="color: #64748b; font-size: 0.9rem;">Official Formula Repository for Class 9 Mathematics & Physics</p>
+        <p style="color: #64748b;">Complete Class 9 Physics & Mathematics Repository</p>
     </header>
 
-    <div class="utility-bar">
-        <div>
-            <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px; font-size:0.8rem; color:var(--phys-glow);">
-                <i data-lucide="zap" size="16"></i> QUICK CONVERTER
-            </div>
-            <input type="number" id="unitInput" placeholder="Enter km/h..." oninput="convert()">
-            <div id="unitResult" style="margin-top:10px; font-weight:bold; font-size:1.2rem;">0 <small>m/s</small></div>
-        </div>
-        <div style="border-left: 1px solid var(--border); padding-left: 20px;">
-            <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px; font-size:0.8rem; color:var(--accent);">
-                <i data-lucide="cpu" size="16"></i> CONSTANT KERNEL
-            </div>
-            <div style="font-size: 0.8rem; display:grid; grid-template-columns: 1fr 1fr; gap:5px;">
-                <span>g = 9.8 m/s²</span>
-                <span>G = 6.67 × 10⁻¹¹</span>
-                <span>π ≈ 22/7</span>
-                <span>ρ_water = 10³ kg/m³</span>
-            </div>
-        </div>
-    </div>
-
     <div class="controls">
-        <button class="btn active" onclick="filter('all', this)"><i data-lucide="layers"></i> All</button>
-        <button class="btn" onclick="filter('math', this)"><i data-lucide="variable"></i> Maths</button>
+        <button class="btn active" onclick="filter('all', this)"><i data-lucide="layout"></i> All</button>
+        <button class="btn" onclick="filter('math', this)"><i data-lucide="function-square"></i> Maths</button>
         <button class="btn" onclick="filter('phys', this)"><i data-lucide="atom"></i> Physics</button>
         <button class="btn" onclick="toggleExam()" id="examBtn"><i data-lucide="eye-off"></i> Exam Mode</button>
     </div>
 
     <div class="vault-grid" id="mainGrid">
+        
         <div class="card math" data-type="math">
-            <div class="card-header">
-                <span class="chapter-tag">Number Systems</span>
-                <i data-lucide="hash" size="18" color="#3b82f6"></i>
-            </div>
-            <h3>Laws of Exponents</h3>
-            <div class="equation-box">aᵐ ⋅ aⁿ = aᵐ⁺ⁿ <br> (aᵐ)ⁿ = aᵐⁿ</div>
-            <p class="usage-text"><b>NCERT Note:</b> For non-zero rational numbers <i>a</i> and integers <i>m, n</i>.</p>
-        </div>
-
-        <div class="card phys" data-type="phys">
-            <div class="card-header">
-                <span class="chapter-tag">Motion (Ch 7)</span>
-                <i data-lucide="move" size="18" color="#10b981"></i>
-            </div>
-            <h3>Average Velocity</h3>
-            <div class="equation-box">vₐᵥ = (u + v) / 2</div>
-            <p class="usage-text"><b>NCERT Note:</b> Applicable when velocity is changing at a uniform rate.</p>
-        </div>
-
-        <div class="card phys" data-type="phys">
-            <div class="card-header">
-                <span class="chapter-tag">Motion (Ch 7)</span>
-                <i data-lucide="trending-up" size="18" color="#10b981"></i>
-            </div>
-            <h3>Equations of Motion</h3>
-            <div class="equation-box">v = u + at <br> s = ut + ½at² <br> v² - u² = 2as</div>
-            <p class="usage-text"><b>Usage:</b> Calculating distance(s), time(t), and velocity for uniform acceleration.</p>
+            <span class="chapter-tag">Number Systems</span>
+            <h3>Rationalization</h3>
+            <div class="eq">1 / (√a + b) × (√a - b) / (√a - b)</div>
+            <p class="note">To remove radicals from the denominator.</p>
         </div>
 
         <div class="card math" data-type="math">
-            <div class="card-header">
-                <span class="chapter-tag">Polynomials</span>
-                <i data-lucide="parentheses" size="18" color="#3b82f6"></i>
-            </div>
-            <h3>Cubic Identity</h3>
-            <div class="equation-box">(x + y)³ = x³ + y³ + 3xy(x + y)</div>
-            <p class="usage-text"><b>Usage:</b> Expanding cubic binomials in factorization problems.</p>
-        </div>
-
-        <div class="card phys" data-type="phys">
-            <div class="card-header">
-                <span class="chapter-tag">Force (Ch 8)</span>
-                <i data-lucide="zap" size="18" color="#10b981"></i>
-            </div>
-            <h3>Momentum & Force</h3>
-            <div class="equation-box">p = m × v <br> F = m × a</div>
-            <p class="usage-text"><b>NCERT Definition:</b> Force is the rate of change of momentum (Newton's 2nd Law).</p>
-        </div>
-
-        <div class="card phys" data-type="phys">
-            <div class="card-header">
-                <span class="chapter-tag">Gravitation (Ch 9)</span>
-                <i data-lucide="globe" size="18" color="#10b981"></i>
-            </div>
-            <h3>Universal Law</h3>
-            <div class="equation-box">F = G (Mm) / d²</div>
-            <p class="usage-text"><b>Note:</b> Every object in the universe attracts every other object.</p>
+            <span class="chapter-tag">Polynomials</span>
+            <h3>Square of Trinomial</h3>
+            <div class="eq">(a+b+c)² = a²+b²+c²+2ab+2bc+2ca</div>
+            <p class="note">Identity V from NCERT Chapter 2.</p>
         </div>
 
         <div class="card math" data-type="math">
-            <div class="card-header">
-                <span class="chapter-tag">Heron's Formula</span>
-                <i data-lucide="triangle" size="18" color="#3b82f6"></i>
-            </div>
-            <h3>Area of Triangle</h3>
-            <div class="equation-box">√[s(s-a)(s-b)(s-c)]</div>
-            <p class="usage-text"><b>Note:</b> s = (a+b+c)/2 (Semi-perimeter).</p>
-        </div>
-
-        <div class="card phys" data-type="phys">
-            <div class="card-header">
-                <span class="chapter-tag">Work & Energy (Ch 10)</span>
-                <i data-lucide="battery-charging" size="18" color="#10b981"></i>
-            </div>
-            <h3>Mechanical Energy</h3>
-            <div class="equation-box">Eₖ = ½mv² <br> Eₚ = mgh</div>
-            <p class="usage-text"><b>NCERT Note:</b> Work done (W) = Force (F) × Displacement (s).</p>
+            <span class="chapter-tag">Polynomials</span>
+            <h3>Difference of Cubes</h3>
+            <div class="eq">x³ - y³ = (x-y)(x² + xy + y²)</div>
+            <p class="note">Crucial for factorization problems.</p>
         </div>
 
         <div class="card math" data-type="math">
-            <div class="card-header">
-                <span class="chapter-tag">Surface Areas</span>
-                <i data-lucide="box" size="18" color="#3b82f6"></i>
-            </div>
-            <h3>Volume: Sphere & Cone</h3>
-            <div class="equation-box">Sphere: 4/3 πr³ <br> Cone: 1/3 πr²h</div>
-            <p class="usage-text"><b>Usage:</b> Calculating capacity of 3D geometrical shapes.</p>
+            <span class="chapter-tag">Heron's Formula</span>
+            <h3>Semi-Perimeter</h3>
+            <div class="eq">s = (a + b + c) / 2</div>
+            <p class="note">Used as the first step for Heron's Area.</p>
+        </div>
+
+        <div class="card math" data-type="math">
+            <span class="chapter-tag">Mensuration</span>
+            <h3>Surface Area: Cone</h3>
+            <div class="eq">CSA = πrl <br> TSA = πr(l + r)</div>
+            <p class="note">l = slant height = √(r² + h²).</p>
+        </div>
+
+        <div class="card math" data-type="math">
+            <span class="chapter-tag">Mensuration</span>
+            <h3>Sphere & Hemisphere</h3>
+            <div class="eq">Sphere Vol: 4/3 πr³ <br> Hemi TSA: 3πr²</div>
+            <p class="note">Hemisphere TSA includes the flat base.</p>
         </div>
 
         <div class="card phys" data-type="phys">
-            <div class="card-header">
-                <span class="chapter-tag">Sound (Ch 11)</span>
-                <i data-lucide="waves" size="18" color="#10b981"></i>
-            </div>
-            <h3>Wave Equation</h3>
-            <div class="equation-box">v = λ × ν <br> ν = 1 / T</div>
-            <p class="usage-text"><b>Definitions:</b> λ=Wavelength, ν=Frequency, T=Time Period.</p>
+            <span class="chapter-tag">Motion</span>
+            <h3>Velocity-Time Relation</h3>
+            <div class="eq">v = u + at</div>
+            <p class="note">1st Equation of Motion.</p>
         </div>
 
         <div class="card phys" data-type="phys">
-            <div class="card-header">
-                <span class="chapter-tag">Sound (Ch 11)</span>
-                <i data-lucide="reiterate" size="18" color="#10b981"></i>
-            </div>
-            <h3>Echo Distance</h3>
-            <div class="equation-box">d = (v × t) / 2</div>
-            <p class="usage-text"><b>Condition:</b> For a distinct echo, min distance is 17.2m in air.</p>
+            <span class="chapter-tag">Motion</span>
+            <h3>Position-Time Relation</h3>
+            <div class="eq">s = ut + ½at²</div>
+            <p class="note">2nd Equation of Motion.</p>
         </div>
+
+        <div class="card phys" data-type="phys">
+            <span class="chapter-tag">Force & Laws</span>
+            <h3>Conservation of Momentum</h3>
+            <div class="eq">m₁u₁ + m₂u₂ = m₁v₁ + m₂v₂</div>
+            <p class="note">Total momentum before = Total momentum after.</p>
+        </div>
+
+        <div class="card phys" data-type="phys">
+            <span class="chapter-tag">Gravitation</span>
+            <h3>Acceleration due to Gravity</h3>
+            <div class="eq">g = GM / R²</div>
+            <p class="note">G = 6.67 × 10⁻¹¹ Nm²/kg².</p>
+        </div>
+
+        <div class="card phys" data-type="phys">
+            <span class="badge phys">Gravitation</span>
+            <h3>Relative Density</h3>
+            <div class="eq">RD = Density of Sub / Density of Water</div>
+            <p class="note">Relative density has no unit.</p>
+        </div>
+
+        <div class="card phys" data-type="phys">
+            <span class="chapter-tag">Work & Energy</span>
+            <h3>Power</h3>
+            <div class="eq">P = W / t = Energy / t</div>
+            <p class="note">Unit: Watt (W). 1 kW = 1000 W.</p>
+        </div>
+
+        <div class="card phys" data-type="phys">
+            <span class="chapter-tag">Work & Energy</span>
+            <h3>Commercial Unit</h3>
+            <div class="eq">1 unit (kWh) = 3.6 × 10⁶ J</div>
+            <p class="note">Used for electricity bill calculations.</p>
+        </div>
+
+        <div class="card phys" data-type="phys">
+            <span class="chapter-tag">Sound</span>
+            <h3>Speed of Wave</h3>
+            <div class="eq">v = λ / T = λ × ν</div>
+            <p class="note">λ = wavelength, ν = frequency.</p>
+        </div>
+
+        <div class="card phys" data-type="phys">
+            <span class="chapter-tag">Sound</span>
+            <h3>SONAR/Echo</h3>
+            <div class="eq">2d = v × t</div>
+            <p class="note">Total distance is 2 times the depth.</p>
+        </div>
+
     </div>
 </div>
 
 <script>
-    // Initialize Lucide Icons
     lucide.createIcons();
 
     function filter(type, btn) {
-        // UI Update
         document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-
-        // Filter Logic
-        const cards = document.querySelectorAll('.card');
-        cards.forEach(card => {
-            if(type === 'all' || card.dataset.type === type) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
+        document.querySelectorAll('.card').forEach(card => {
+            card.style.display = (type === 'all' || card.dataset.type === type) ? 'block' : 'none';
         });
     }
 
     function toggleExam() {
         const grid = document.getElementById('mainGrid');
-        const btn = document.getElementById('examBtn');
         grid.classList.toggle('exam-hidden');
-        
-        if(grid.classList.contains('exam-hidden')) {
-            btn.innerHTML = '<i data-lucide="eye"></i> Study Mode';
-            btn.style.background = '#3b82f6';
-            btn.style.color = '#fff';
-        } else {
-            btn.innerHTML = '<i data-lucide="eye-off"></i> Exam Mode';
-            btn.style.background = 'var(--glass)';
-            btn.style.color = 'var(--text)';
-        }
+        const isExam = grid.classList.contains('exam-hidden');
+        document.getElementById('examBtn').innerHTML = isExam ? 
+            '<i data-lucide="eye"></i> Study Mode' : '<i data-lucide="eye-off"></i> Exam Mode';
         lucide.createIcons();
-    }
-
-    function convert() {
-        const val = document.getElementById('unitInput').value;
-        const res = (val * 5/18).toFixed(2);
-        document.getElementById('unitResult').innerHTML = `${res} <small>m/s</small>`;
     }
 </script>
 
