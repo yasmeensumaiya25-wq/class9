@@ -3,24 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OmniVault | NCERT Class 9 Dark</title>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Fira+Code:wght@500&display=swap" rel="stylesheet">
+    <title>OmniVault | NCERT Class 9 Master</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     
     <style>
         :root {
             --bg: #0f111a;
             --card-bg: #1a1d2e;
-            --math-glow: #f472b6; /* Pastel Pink */
-            --phys-glow: #a78bfa; /* Pastel Lavender */
+            --math-glow: #f472b6;
+            --phys-glow: #a78bfa;
             --mint: #34d399;
             --text: #e2e8f0;
             --sub-text: #94a3b8;
         }
 
         body {
-            background: var(--bg);
-            color: var(--text);
+            background: var(--bg); color: var(--text);
             font-family: 'Quicksand', sans-serif;
             margin: 0; padding: 20px;
             background-image: radial-gradient(circle at 2px 2px, rgba(244, 114, 182, 0.05) 1px, transparent 0);
@@ -35,10 +34,9 @@
             border: 1px solid rgba(255,255,255,0.05); margin-bottom: 30px;
         }
 
-        h1 { margin: 0; font-weight: 700; letter-spacing: -1px; font-size: 2.2rem; }
+        h1 { margin: 0; font-weight: 700; font-size: 2.2rem; }
         .pink-glow { color: var(--math-glow); text-shadow: 0 0 10px rgba(244, 114, 182, 0.3); }
 
-        /* --- CHECKLIST SECTION --- */
         .checklist-container {
             background: var(--card-bg); padding: 25px; border-radius: 25px;
             margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.05);
@@ -48,38 +46,37 @@
         .check-item:hover { color: var(--math-glow); }
         .check-item input { accent-color: var(--math-glow); width: 16px; height: 16px; cursor: pointer; }
 
-        /* --- CONTROLS --- */
         .controls { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 30px; }
         .btn {
             background: var(--card-bg); border: 1px solid rgba(255,255,255,0.1); color: var(--text);
             padding: 10px 22px; border-radius: 15px; cursor: pointer;
             display: flex; align-items: center; gap: 8px; font-weight: 700; transition: 0.3s;
         }
-        .btn:hover { border-color: var(--math-glow); background: rgba(244, 114, 182, 0.1); }
         .btn.active { background: var(--math-glow); color: #000; border-color: var(--math-glow); }
 
-        /* --- CARDS --- */
         .vault-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
         .card {
             background: var(--card-bg); border-radius: 25px; padding: 25px;
             border: 1px solid rgba(255,255,255,0.03); transition: 0.3s ease;
         }
-        .card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.2); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.2); }
         .card.math { border-top: 4px solid var(--math-glow); }
         .card.phys { border-top: 4px solid var(--phys-glow); }
 
         .chapter-tag { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; color: var(--mint); letter-spacing: 1px; }
+        
+        /* SPECIFIC FONT FOR FORMULAS */
         .eq {
-            font-family: 'Fira Code', monospace; background: #0b0d14;
-            padding: 15px; border-radius: 15px; margin: 15px 0; 
-            text-align: center; font-size: 0.95rem; color: #fff;
-            border: 1px solid rgba(255,255,255,0.05); line-height: 1.8;
+            font-family: 'Dancing Script', cursive; 
+            background: #0b0d14; padding: 15px; border-radius: 15px; 
+            margin: 15px 0; text-align: center; font-size: 1.4rem; color: #fff;
+            border: 1px solid rgba(255,255,255,0.05); line-height: 1.4;
+            letter-spacing: 1px;
         }
 
-        /* EXAM MODE */
         .exam-hidden .eq { color: transparent; background: #121420; cursor: pointer; }
-        .exam-hidden .eq::after { content: '✨ TAP TO REVEAL'; color: var(--sub-text); font-size: 0.7rem; font-family: 'Quicksand'; font-weight: 700; }
-        .exam-hidden .eq:active { color: #fff; background: #000; }
+        .exam-hidden .eq::after { content: '✨ TAP TO REVEAL'; color: var(--sub-text); font-size: 0.7rem; font-family: 'Quicksand'; position: absolute; left: 50%; transform: translateX(-50%); }
+        .exam-hidden .eq:active { color: #fff; }
         .exam-hidden .eq:active::after { display: none; }
         
         .note { font-size: 0.8rem; color: var(--sub-text); line-height: 1.4; }
@@ -91,15 +88,14 @@
     <header>
         <div style="font-size: 2.5rem; margin-bottom: 10px;"><i data-lucide="sparkles" color="#f472b6"></i></div>
         <h1>NCERT <span class="pink-glow">OmniVault</span></h1>
-        <p style="color: var(--sub-text);">Class 9 Master Archive • Full Syllabus Integrated</p>
+        <p style="color: var(--sub-text);">Class 9 Complete Formula Archive</p>
     </header>
 
     <div class="checklist-container">
         <h3 style="margin:0; color:var(--math-glow); font-size: 1rem; display:flex; align-items:center; gap:10px;">
             <i data-lucide="star" size="18"></i> My Study Progress
         </h3>
-        <div class="checklist-grid" id="checkList">
-            </div>
+        <div class="checklist-grid" id="checkList"></div>
     </div>
 
     <div class="controls">
@@ -111,11 +107,54 @@
 
     <div class="vault-grid" id="mainGrid">
         
-        <div class="card phys" data-type="phys">
-            <span class="chapter-tag">Motion</span>
-            <h3>Speed & Velocity</h3>
-            <div class="eq">v_avg = Total Dist / Total Time <br> V_avg = (u + v) / 2</div>
-            <p class="note"><b>u</b> = initial, <b>v</b> = final velocity.</p>
+        <div class="card math" data-type="math">
+            <span class="chapter-tag">Number Systems</span>
+            <h3>Exponents & Radicals</h3>
+            <div class="eq">aᵐ ⋅ aⁿ = aᵐ⁺ⁿ <br> √(ab) = √a ⋅ √b</div>
+            <p class="note">Crucial for simplifying irrational numbers.</p>
+        </div>
+
+        <div class="card math" data-type="math">
+            <span class="chapter-tag">Polynomials</span>
+            <h3>Algebraic Identities I-IV</h3>
+            <div class="eq">(x+y)² = x²+2xy+y² <br> x²-y² = (x+y)(x-y)</div>
+            <p class="note">Includes (x+a)(x+b) = x²+(a+b)x+ab.</p>
+        </div>
+
+        <div class="card math" data-type="math">
+            <span class="chapter-tag">Polynomials</span>
+            <h3>Cubic & Trinomial Identities</h3>
+            <div class="eq">(x+y+z)² = x²+y²+z²+2xy+2yz+2zx <br> (x+y)³ = x³+y³+3xy(x+y)</div>
+        </div>
+
+        <div class="card math" data-type="math">
+            <span class="chapter-tag">Coordinate Geometry</span>
+            <h3>Distance & Midpoint</h3>
+            <div class="eq">d = √[(x₂-x₁)² + (y₂-y₁)²] <br> M = (x₁+x₂)/2 , (y₁+y₂)/2</div>
+        </div>
+
+        <div class="card math" data-type="math">
+            <span class="chapter-tag">Lines & Angles</span>
+            <h3>Fundamental Rules</h3>
+            <div class="eq">Linear Pair = 180° <br> Reflex Angle = 360° - θ</div>
+        </div>
+
+        <div class="card math" data-type="math">
+            <span class="chapter-tag">Triangles</span>
+            <h3>Heron's Formula</h3>
+            <div class="eq">Area = √[s(s-a)(s-b)(s-c)] <br> s = (a+b+c)/2</div>
+        </div>
+
+        <div class="card math" data-type="math">
+            <span class="chapter-tag">Mensuration</span>
+            <h3>Cuboid & Cube</h3>
+            <div class="eq">TSA = 2(lb+bh+hl) <br> Vol = l × b × h | Cube Vol = a³</div>
+        </div>
+
+        <div class="card math" data-type="math">
+            <span class="chapter-tag">Mensuration</span>
+            <h3>Cylinder & Cone</h3>
+            <div class="eq">Cyl CSA: 2πrh | Vol: πr²h <br> Cone Slant l: √(r²+h²)</div>
         </div>
 
         <div class="card phys" data-type="phys">
@@ -126,88 +165,38 @@
 
         <div class="card phys" data-type="phys">
             <span class="chapter-tag">Motion</span>
-            <h3>Uniform Circular Motion</h3>
-            <div class="eq">v = (2πr) / t</div>
-            <p class="note">Used for objects moving in a circular path at constant speed.</p>
+            <h3>Circular Motion & Velocity</h3>
+            <div class="eq">v = (2πr) / t <br> v_avg = (u + v) / 2</div>
         </div>
 
         <div class="card phys" data-type="phys">
             <span class="chapter-tag">Force & Laws</span>
-            <h3>Newton's 2nd Law & Momentum</h3>
-            <div class="eq">p = m × v <br> F = m × a</div>
-            <p class="note">p is momentum. F is force.</p>
-        </div>
-
-        <div class="card phys" data-type="phys">
-            <span class="chapter-tag">Force & Laws</span>
-            <h3>Conservation & Impulse</h3>
-            <div class="eq">m₁u₁ + m₂u₂ = m₁v₁ + m₂v₂ <br> Impulse = F × Δt = Δp</div>
-            <p class="note">Impulse is the change in momentum.</p>
+            <h3>Momentum & Force</h3>
+            <div class="eq">p = m × v <br> F = m × a <br> Impulse = F × Δt</div>
         </div>
 
         <div class="card phys" data-type="phys">
             <span class="chapter-tag">Gravitation</span>
-            <h3>Universal Law & Gravity</h3>
-            <div class="eq">F = G (Mm) / d² <br> g = GM / R²</div>
-            <p class="note">G = 6.67 × 10⁻¹¹ Nm²/kg²</p>
-        </div>
-
-        <div class="card phys" data-type="phys">
-            <span class="chapter-tag">Gravitation</span>
-            <h3>Weight & Free Fall</h3>
-            <div class="eq">W = m × g <br> v = gt | h = ½gt²</div>
-            <p class="note">On Moon, weight is 1/6th of Earth weight.</p>
-        </div>
-
-        <div class="card phys" data-type="phys">
-            <span class="chapter-tag">Work, Energy, Power</span>
-            <h3>Work & Mechanical Energy</h3>
-            <div class="eq">W = F × s × cosθ <br> Eₖ = ½mv² | Eₚ = mgh</div>
+            <h3>Universal Law & Weight</h3>
+            <div class="eq">F = G(Mm)/d² <br> W = m × g | g = GM/R²</div>
         </div>
 
         <div class="card phys" data-type="phys">
             <span class="chapter-tag">Work & Energy</span>
-            <h3>Power & Commercial Unit</h3>
-            <div class="eq">P = W / t <br> 1 kWh = 3.6 × 10⁶ J</div>
-        </div>
-
-        <div class="card phys" data-type="phys">
-            <span class="chapter-tag">Fluids & Density</span>
-            <h3>Thrust & Pressure</h3>
-            <div class="eq">P = Force / Area <br> Density (ρ) = Mass / Vol</div>
+            <h3>Kinetic & Potential</h3>
+            <div class="eq">Eₖ = ½mv² <br> Eₚ = mgh <br> P = W / t</div>
         </div>
 
         <div class="card phys" data-type="phys">
             <span class="chapter-tag">Fluids</span>
-            <h3>Relative Density & Buoyancy</h3>
-            <div class="eq">R.D. = ρ_substance / ρ_water <br> F_buoyant = Vρg</div>
-            <p class="note">R.D. has no unit. Archimedes' Principle.</p>
+            <h3>Pressure & Density</h3>
+            <div class="eq">P = F / A <br> RD = ρ_sub / ρ_water</div>
         </div>
 
         <div class="card phys" data-type="phys">
             <span class="chapter-tag">Sound</span>
-            <h3>Wave Equation</h3>
-            <div class="eq">v = λ × ν <br> ν = 1 / T</div>
-            <p class="note">λ (Lambda) = Wavelength, ν (Nu) = Frequency.</p>
-        </div>
-
-        <div class="card phys" data-type="phys">
-            <span class="chapter-tag">Sound</span>
-            <h3>SONAR & Echo</h3>
-            <div class="eq">2d = v × t</div>
-            <p class="note">Distance d = (Speed × Time) / 2.</p>
-        </div>
-
-        <div class="card math" data-type="math">
-            <span class="chapter-tag">Polynomials</span>
-            <h3>The Big Identities</h3>
-            <div class="eq">(a+b+z)² = a²+b²+z²+2ab+2bz+2za <br> a³+b³+z³-3abz = (a+b+z)(a²+b²+z²-ab-bz-za)</div>
-        </div>
-
-        <div class="card math" data-type="math">
-            <span class="chapter-tag">Mensuration</span>
-            <h3>Full Surface Area Recap</h3>
-            <div class="eq">Cyl TSA: 2πr(r+h) <br> Cone TSA: πr(l+r) <br> Sphere: 4πr²</div>
+            <h3>Echo & Waves</h3>
+            <div class="eq">v = λ × ν <br> Echo: 2d = v × t</div>
         </div>
 
     </div>
@@ -216,20 +205,15 @@
 <script>
     lucide.createIcons();
 
-    // CHAPTERS LIST
-    const chapters = [
-        "Number Systems", "Polynomials", "Geometry", "Mensuration", 
-        "Motion", "Force", "Gravitation", "Work & Energy", "Fluids", "Sound"
-    ];
-
+    const chapters = ["Number Systems", "Polynomials", "Coordinate Geometry", "Lines & Angles", "Triangles", "Mensuration", "Motion", "Force", "Gravitation", "Work & Energy", "Fluids", "Sound"];
     const checklistGrid = document.getElementById('checkList');
+    
     chapters.forEach((ch, index) => {
         const id = `ch-${index}`;
         const label = document.createElement('label');
         label.className = 'check-item';
         label.innerHTML = `<input type="checkbox" id="${id}" onchange="saveProgress(this)"> ${ch}`;
         checklistGrid.appendChild(label);
-        
         if(localStorage.getItem(id) === 'true') document.getElementById(id).checked = true;
     });
 
